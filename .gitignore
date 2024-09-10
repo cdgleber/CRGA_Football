@@ -1,0 +1,7 @@
+/target
+*.rs
+*.json
+*.txt
+*.toml
+*.svg
+*.lock
