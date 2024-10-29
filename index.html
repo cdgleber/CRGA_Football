@@ -29,6 +29,7 @@
         <th onclick="sortTable(2)">Score</th>
         <th onclick="sortTable(3)">Wins</th>
         <th onclick="sortTable(4)">Divisional<br />Losses</th>
+		<th>Betters</th>
     </tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/dE1kFhDa-vXT2FPNl.png" /></td><td>Arizona Cardinals</td><td>4</td><td>4</td><td>0</td>
 <td class="small"></td></tr>
@@ -211,24 +212,55 @@
 </script>
 
 <style>
-    .center {
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-    }
-    body, table, th, td {
-        font-size: 16pt;
-        padding: 5px;
-    }
-    table {
-      border-collapse: collapse;
-    }
+@media (max-width: 768px) {
+  body, table, th, td {
+    font-size: 14px;
+  }
+}
 
-    tr {
-      border-bottom: 1pt solid black;
-    }
+@media (min-width: 768px) {
+  body, table, th, td {
+    font-size: 16px;
+  }
+}
 
-    .small {
-      font-size: 10pt;
-    }
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+table {
+  border-collapse: collapse;
+  background-color: white;
+  width: 50%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #d25252;
+  color: white;
+  cursor: pointer;
+}
+
+.center {
+  text-align: center;
+}
+
+.small {
+  font-size: 12px;
+}
+
+img {
+  max-width: 35px;
+  height: auto;
+}
 </style>
