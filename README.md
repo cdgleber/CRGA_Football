@@ -1,4 +1,4 @@
-# Crawfor Road Football Pool Standings
+# Crawford Road Football Pool Standings
 
 Fetches data from RapidAPI Flashsports to assign points for the football pool.
 
