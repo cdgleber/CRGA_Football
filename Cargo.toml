@@ -7,10 +7,11 @@ edition = "2021"
 anyhow = "1.0.86"
 chrono = "0.4.38"
 dotenv = "0.15.0"
-reqwest = "0.12.7"
+reqwest = { version = "0.12.7", features = ["rustls-tls"] }
 serde = { version = "1.0.209", features = ["derive"] }
 serde_json = "1.0.128"
 tokio = { version = "1.40.0", features = ["full"] }
+webpki-roots = "0.26.7"
 
 [lints.rust]
 non_snake_case = "allow"
