@@ -1,8 +1,8 @@
 /target
-*.rs
+/logos
 *.json
 *.txt
-*.toml
 *.svg
 *.lock
 *.ps1
+.env
