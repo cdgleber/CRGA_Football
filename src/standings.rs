@@ -3,9 +3,7 @@ use anyhow::Result;
 use std::collections::BTreeMap;
 
 pub fn get_team_records() -> Result<BTreeMap<String, Team>> {
-    let event_json = std::fs
-        ::read_to_string("C:\\DEVELOPMENT\\CRGA_Football\\src\\bin\\standings.json")
-        .unwrap();
+    let event_json = std::fs::read_to_string("src/data/standings.json").unwrap();
     let v: Value = serde_json::from_str(&event_json)?;
 
     let afc = v["DATA"][1]["ROWS"].as_array().unwrap();
@@ -58,7 +56,7 @@ pub fn get_team_div_losses(name: &str) -> Result<u8> {
     let mut page = 1;
     let mut div_losses = 0u8;
     loop {
-        let path = format!("C:\\DEVELOPMENT\\CRGA_Football\\src\\bin\\results_{}.json", page);
+        let path = format!("src/data/results_{}.json", page);
 
         let event_json = std::fs::read_to_string(path).unwrap();
         let v: Value = serde_json::from_str(&event_json)?;

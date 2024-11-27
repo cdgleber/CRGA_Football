@@ -4,7 +4,7 @@ use anyhow::Result;
 use crate::standings::Team;
 
 pub fn get_betters_picks() -> Result<Vec<Better>> {
-    let better_picks = include_str!("C:\\DEVELOPMENT\\CRGA_Football\\src\\better_picks.txt");
+    let better_picks = include_str!("better_picks.txt");
 
     let betters: Vec<Better> = better_picks
         .split("\r\n\r\n")

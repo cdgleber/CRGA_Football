@@ -20,7 +20,7 @@ async fn main() -> Result<()> {
 
     let standings = get_team_records()?;
 
-    let filename = format!("C:\\DEVELOPMENT\\CRGA_Football\\index.html");
+    let filename = format!("index.html");
     let mut file = File::create(filename).await?;
 
     let to_add = format!(
@@ -97,7 +97,7 @@ async fn get_standings(api_key: &str) -> Result<()> {
 
     let body = res.text().await?;
 
-    let filename = format!("C:\\DEVELOPMENT\\CRGA_Football\\src\\bin\\standings.json");
+    let filename = format!("src/data/standings.json");
     let mut file = File::create(filename).await?;
     file.write_all(body.as_bytes()).await?;
 
@@ -122,7 +122,7 @@ async fn get_results(page: u8, api_key: &str) -> Result<String> {
 
     let body = res.text().await?;
 
-    let filename = format!("C:\\DEVELOPMENT\\CRGA_Football\\src\\bin\\results_{}.json", page);
+    let filename = format!("src/data/results_{}.json", page);
     let mut file = File::create(filename).await?;
     file.write_all(body.as_bytes()).await?;
 
