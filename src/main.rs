@@ -13,12 +13,16 @@ use CRGA_Football::page::{ PAGE_TOP, PAGE_MIDDLE, PAGE_BOTTOM };
 #[tokio::main]
 async fn main() -> Result<()> {
     dotenv().ok();
-    let api_key = env::var("RapidAPI_Key").expect("RapidAPI_Key must be set");
+    // let api_key = env::var("RapidAPI_Key").expect("RapidAPI_Key must be set");
+    // let tournament_season_id = "C2QNbtg3";
+    // let tournament_stage_id = "6s2xHtgt";
 
-    get_standings(&api_key).await?;
-    get_all_results(&api_key).await?;
+    // get_standings(&api_key, tournament_season_id, tournament_stage_id).await?;
+    // get_all_results(&api_key, tournament_stage_id).await?;
 
     let standings = get_team_records()?;
+
+    // println!("{:?}", standings);
 
     let filename = format!("index.html");
     let mut file = File::create(filename).await?;
@@ -29,9 +33,32 @@ async fn main() -> Result<()> {
     );
     file.write_all(to_add.as_bytes()).await?;
 
-    file.write_all(PAGE_TOP.as_bytes()).await?;
-
     let mut betters = get_betters_picks()?;
+
+    //     betters.sort_by_key(|b| b.name.clone());
+    //     let team_top: &str =
+    //         "<table id=\"teams\" class=\"center\">
+    //     <tr>
+    //         <th>Better</th>
+    //         <th>Teams</th>
+    //     </tr>
+    // ";
+    //     file.write_all(team_top.as_bytes()).await?;
+    //     for better in &betters {
+    //         let to_add = format!("<tr><td>{}</td><td></td></tr>\n", better.name.clone());
+    //         file.write_all(to_add.as_bytes()).await?;
+
+    //         for team in &better.picks {
+    //             let to_add = format!("<tr><td></td><td>{}</td></tr>\n", team);
+    //             file.write_all(to_add.as_bytes()).await?;
+    //         }
+    //     }
+
+    //     let team_bottom: &str = "</table>
+    // <br />";
+    //     file.write_all(team_bottom.as_bytes()).await?;
+
+    file.write_all(PAGE_TOP.as_bytes()).await?;
     betters.sort_by_key(|b| b.better_score(&standings));
     betters.reverse();
     for better in &betters {
@@ -80,9 +107,15 @@ async fn main() -> Result<()> {
 }
 
 #[allow(unused)]
-async fn get_standings(api_key: &str) -> Result<()> {
+async fn get_standings(
+    api_key: &str,
+    tournament_season_id: &str,
+    tournament_stage_id: &str
+) -> Result<()> {
     let url = format!(
-        "https://flashlive-sports.p.rapidapi.com/v1/tournaments/standings?tournament_season_id=UgPH6H7i&standing_type=overall&locale=en_INT&tournament_stage_id=lWha05Vk"
+        "https://flashlive-sports.p.rapidapi.com/v1/tournaments/standings?tournament_season_id={}&standing_type=overall&locale=en_INT&tournament_stage_id={}",
+        tournament_season_id,
+        tournament_stage_id
     );
 
     let mut headers = HeaderMap::new();
@@ -105,9 +138,12 @@ async fn get_standings(api_key: &str) -> Result<()> {
 }
 
 #[allow(unused)]
-async fn get_results(page: u8, api_key: &str) -> Result<String> {
-    let url =
-        format!("https://flashlive-sports.p.rapidapi.com/v1/tournaments/results?locale=en_INT&tournament_stage_id=lWha05Vk&page={}", page);
+async fn get_results(page: u8, api_key: &str, tournament_stage_id: &str) -> Result<String> {
+    let url = format!(
+        "https://flashlive-sports.p.rapidapi.com/v1/tournaments/results?locale=en_INT&tournament_stage_id={}&page={}",
+        tournament_stage_id,
+        page
+    );
 
     let mut headers = HeaderMap::new();
     headers.insert(
@@ -129,9 +165,9 @@ async fn get_results(page: u8, api_key: &str) -> Result<String> {
     Ok(body)
 }
 
-async fn get_all_results(api_key: &str) -> Result<()> {
+async fn get_all_results(api_key: &str, tournament_stage_id: &str) -> Result<()> {
     let mut page = 1u8;
-    let body = get_results(page, api_key).await?;
+    let body = get_results(page, api_key, tournament_stage_id).await?;
 
     let v: Value = serde_json::from_str(&body)?;
     let events = v["DATA"][0]["EVENTS"].as_array().unwrap();
@@ -140,7 +176,7 @@ async fn get_all_results(api_key: &str) -> Result<()> {
 
     while event_length > 29 {
         page += 1;
-        let body = get_results(page, api_key).await?;
+        let body = get_results(page, api_key, tournament_stage_id).await?;
         let internal: Value = serde_json::from_str(&body)?;
 
         if let Some(new_length) = internal["DATA"][0]["EVENTS"].as_array() {
@@ -157,6 +193,9 @@ async fn get_all_results(api_key: &str) -> Result<()> {
 
 // ID:5
 // NAME:"AMERICAN_FOOTBALL"
+
+//2025 tournament stage id 6s2xHtgt
+//2025 season id C2QNbtg3
 
 // SPORT_ID:5
 // COUNTRY_ID:200

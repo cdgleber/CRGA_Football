@@ -63,6 +63,7 @@ pub fn get_team_div_losses(name: &str) -> Result<u8> {
 
         let events = v["DATA"][0]["EVENTS"].as_array().unwrap();
         let events_length = events.len();
+        // println!("{}", events_length);
 
         for event in events {
             let mut loser = String::new();
@@ -93,7 +94,7 @@ pub fn get_team_div_losses(name: &str) -> Result<u8> {
             }
         }
 
-        if events_length < 30 {
+        if events_length < 31 {
             break;
         }
 
