@@ -13,12 +13,12 @@ use CRGA_Football::page::{ PAGE_TOP, PAGE_MIDDLE, PAGE_BOTTOM };
 #[tokio::main]
 async fn main() -> Result<()> {
     dotenv().ok();
-    // let api_key = env::var("RapidAPI_Key").expect("RapidAPI_Key must be set");
-    // let tournament_season_id = "C2QNbtg3";
-    // let tournament_stage_id = "6s2xHtgt";
+    let api_key = env::var("RapidAPI_Key").expect("RapidAPI_Key must be set");
+    let tournament_season_id = "C2QNbtg3";
+    let tournament_stage_id = "6s2xHtgt";
 
-    // get_standings(&api_key, tournament_season_id, tournament_stage_id).await?;
-    // get_all_results(&api_key, tournament_stage_id).await?;
+    get_standings(&api_key, tournament_season_id, tournament_stage_id).await?;
+    get_all_results(&api_key, tournament_stage_id).await?;
 
     let standings = get_team_records()?;
 
@@ -63,7 +63,8 @@ async fn main() -> Result<()> {
     betters.reverse();
     for better in &betters {
         let to_add = format!(
-            "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>\n",
+            "<tr><td onclick=\"filterByBetter(\'{}\')\" class=\"clickable-name\">{}</td><td>{}</td><td>{}</td><td>{}</td></tr>\n",
+            better.name,
             better.name,
             better.better_score(&standings),
             better.better_wins(&standings),

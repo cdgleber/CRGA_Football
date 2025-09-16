@@ -1,5 +1,6 @@
 pub const PAGE_TOP: &str =
-    "<div class=\"center\">Click the header to sort.</div>
+    "
+<div class=\"center\">Click the header to sort.<br />Click a name in the betters table to filter teams.</div>
 <br />
 <table id=\"betters\" class=\"center\">
     <tr>
@@ -12,6 +13,11 @@ pub const PAGE_TOP: &str =
 
 pub const PAGE_MIDDLE: &str =
     "</table>
+<br />
+<div class=\"center\">
+    <button onclick=\"showAllTeams()\" id=\"clearFilter\">Show All Teams</button>
+    <span id=\"filterStatus\"></span>
+</div>
 <br />
 <table id=\"teams\" class=\"center\">
     <tr>
@@ -139,6 +145,63 @@ pub const PAGE_BOTTOM: &str =
         }
       }
     }
+
+    function filterByBetter(betterName) {
+      var table = document.getElementById(\"teams\");
+      var rows = table.rows;
+      var visibleCount = 0;
+      
+      // Loop through all team rows (skip header row at index 0)
+      for (var i = 1; i < rows.length; i++) {
+        var bettersColumn = rows[i].getElementsByTagName(\"TD\")[5]; // Betters column is index 5
+        var bettersText = bettersColumn.innerHTML.toLowerCase();
+        var searchName = betterName.toLowerCase();
+        
+        // Check if the better name appears in the betters column
+        if (bettersText.includes(searchName)) {
+          rows[i].style.display = \"\";
+          visibleCount++;
+        } else {
+          rows[i].style.display = \"none\";
+        }
+      }
+      
+      // Update filter status
+      var filterStatus = document.getElementById(\"filterStatus\");
+      filterStatus.innerHTML = \"Filtered by: <strong>\" + betterName + \"</strong> (\" + visibleCount + \" teams)\";
+      
+      // Remove previous highlighting
+      var clickableNames = document.getElementsByClassName(\"clickable-name\");
+      for (var i = 0; i < clickableNames.length; i++) {
+        clickableNames[i].classList.remove(\"active-filter\");
+      }
+      
+      // Highlight the clicked name
+      var clickedElements = document.querySelectorAll('[onclick=\"filterByBetter(\\'' + betterName + '\\')\"]');
+      if (clickedElements.length > 0) {
+        clickedElements[0].classList.add(\"active-filter\");
+      }
+    }
+    
+    function showAllTeams() {
+      var table = document.getElementById(\"teams\");
+      var rows = table.rows;
+      
+      // Show all rows
+      for (var i = 1; i < rows.length; i++) {
+        rows[i].style.display = \"\";
+      }
+      
+      // Clear filter status
+      var filterStatus = document.getElementById(\"filterStatus\");
+      filterStatus.innerHTML = \"\";
+      
+      // Remove highlighting from all names
+      var clickableNames = document.getElementsByClassName(\"clickable-name\");
+      for (var i = 0; i < clickableNames.length; i++) {
+        clickableNames[i].classList.remove(\"active-filter\");
+      }
+    }
 </script>
 
 <style>
@@ -192,6 +255,41 @@ th {
 img {
   max-width: 35px;
   height: auto;
+}
+
+.clickable-name {
+  cursor: pointer;
+  color: #0066cc;
+  font-weight: bold;
+}
+
+.clickable-name:hover {
+  background-color: #f0f8ff;
+  text-decoration: underline;
+}
+
+.active-filter {
+  background-color: #d25252 !important;
+  color: white !important;
+}
+
+#clearFilter {
+  background-color: #d25252;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+#clearFilter:hover {
+  background-color: #b04040;
+}
+
+#filterStatus {
+  color: #666;
+  font-style: italic;
 }
 </style>
 ";

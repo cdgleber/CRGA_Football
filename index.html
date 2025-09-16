@@ -1,5 +1,5 @@
-<div class="center">Updated: 2025-09-15 13:43:55 </div><br />
-<div class="center">Click the header to sort.</div>
+<div class="center">Updated: 2025-09-16 08:50:05 </div><br />
+<div class="center">Click the header to sort.<br />Click a name in the betters table to filter teams.</div>
 <br />
 <table id="betters" class="center">
     <tr>
@@ -8,19 +8,24 @@
         <th onclick="sortTable2(2)">Wins</th>
         <th onclick="sortTable2(3)">Divisional<br />Losses</th>
     </tr>
-<tr><td>Meghan</td><td>14</td><td>14</td><td>0</td></tr>
-<tr><td>Angie</td><td>12</td><td>12</td><td>0</td></tr>
-<tr><td>Vicki </td><td>11</td><td>11</td><td>0</td></tr>
-<tr><td>Conrad D</td><td>11</td><td>12</td><td>1</td></tr>
-<tr><td>Freddie </td><td>10</td><td>11</td><td>1</td></tr>
-<tr><td>Mark</td><td>9</td><td>11</td><td>2</td></tr>
-<tr><td>Cleo</td><td>8</td><td>10</td><td>2</td></tr>
-<tr><td>Alli</td><td>8</td><td>11</td><td>3</td></tr>
-<tr><td>Conrad J</td><td>8</td><td>10</td><td>2</td></tr>
-<tr><td>Jules</td><td>7</td><td>9</td><td>2</td></tr>
-<tr><td>JP</td><td>7</td><td>9</td><td>2</td></tr>
-<tr><td>Pat</td><td>7</td><td>9</td><td>2</td></tr>
+<tr><td onclick="filterByBetter('Meghan')" class="clickable-name">Meghan</td><td>16</td><td>16</td><td>0</td></tr>
+<tr><td onclick="filterByBetter('Angie')" class="clickable-name">Angie</td><td>13</td><td>13</td><td>0</td></tr>
+<tr><td onclick="filterByBetter('Vicki ')" class="clickable-name">Vicki </td><td>12</td><td>12</td><td>0</td></tr>
+<tr><td onclick="filterByBetter('Conrad D')" class="clickable-name">Conrad D</td><td>12</td><td>13</td><td>1</td></tr>
+<tr><td onclick="filterByBetter('Freddie ')" class="clickable-name">Freddie </td><td>11</td><td>12</td><td>1</td></tr>
+<tr><td onclick="filterByBetter('Conrad J')" class="clickable-name">Conrad J</td><td>10</td><td>11</td><td>1</td></tr>
+<tr><td onclick="filterByBetter('Cleo')" class="clickable-name">Cleo</td><td>9</td><td>10</td><td>1</td></tr>
+<tr><td onclick="filterByBetter('Mark')" class="clickable-name">Mark</td><td>9</td><td>11</td><td>2</td></tr>
+<tr><td onclick="filterByBetter('Alli')" class="clickable-name">Alli</td><td>9</td><td>11</td><td>2</td></tr>
+<tr><td onclick="filterByBetter('JP')" class="clickable-name">JP</td><td>9</td><td>10</td><td>1</td></tr>
+<tr><td onclick="filterByBetter('Jules')" class="clickable-name">Jules</td><td>8</td><td>9</td><td>1</td></tr>
+<tr><td onclick="filterByBetter('Pat')" class="clickable-name">Pat</td><td>8</td><td>9</td><td>1</td></tr>
 </table>
+<br />
+<div class="center">
+    <button onclick="showAllTeams()" id="clearFilter">Show All Teams</button>
+    <span id="filterStatus"></span>
+</div>
 <br />
 <table id="teams" class="center">
     <tr>
@@ -36,9 +41,9 @@
 <tr><td><img src="https://www.flashscore.com/res/image/data/be5PNHyB-z5QECN77.png" /></td><td>Atlanta Falcons</td><td>0</td><td>1</td><td>1</td>
 <td class="small"></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/dUe4S2il-dERAD3h1.png" /></td><td>Baltimore Ravens</td><td>1</td><td>1</td><td>0</td>
-<td class="small">Angie<br />Vicki <br />Conrad D<br />Freddie <br />Mark<br />Cleo<br />Conrad J<br />Jules<br />JP<br />Pat<br /></td></tr>
+<td class="small">Angie<br />Vicki <br />Conrad D<br />Freddie <br />Conrad J<br />Cleo<br />Mark<br />JP<br />Jules<br />Pat<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/WxLvPwFa-INS6Eqwe.png" /></td><td>Buffalo Bills</td><td>2</td><td>2</td><td>0</td>
-<td class="small">Meghan<br />Angie<br />Vicki <br />Conrad D<br />Freddie <br />Mark<br />Cleo<br />Alli<br />Conrad J<br />Jules<br />JP<br />Pat<br /></td></tr>
+<td class="small">Meghan<br />Angie<br />Vicki <br />Conrad D<br />Freddie <br />Conrad J<br />Cleo<br />Mark<br />Alli<br />JP<br />Jules<br />Pat<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/vXZIzSzS-dERAD3h1.png" /></td><td>Carolina Panthers</td><td>0</td><td>0</td><td>0</td>
 <td class="small"></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/Wr2txCEG-QwFacXgt.png" /></td><td>Chicago Bears</td><td>-2</td><td>0</td><td>2</td>
@@ -47,12 +52,12 @@
 <td class="small">Meghan<br />Alli<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/2BODDmFa-p4uD71lN.png" /></td><td>Cleveland Browns</td><td>-2</td><td>0</td><td>2</td>
 <td class="small"></td></tr>
-<tr><td><img src="https://www.flashscore.com/res/image/data/2DROi6Wg-INS6Eqwe.png" /></td><td>Dallas Cowboys</td><td>0</td><td>1</td><td>1</td>
+<tr><td><img src="https://www.flashscore.com/res/image/data/2DROi6Wg-INS6Eqwe.png" /></td><td>Dallas Cowboys</td><td>1</td><td>1</td><td>0</td>
 <td class="small"></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/bs8k9qcM-INS6Eqwe.png" /></td><td>Denver Broncos</td><td>1</td><td>1</td><td>0</td>
-<td class="small">Angie<br />Conrad D<br />Freddie <br />Mark<br />Conrad J<br /></td></tr>
+<td class="small">Angie<br />Conrad D<br />Freddie <br />Conrad J<br />Mark<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/zkjAStEa-z5QECN77.png" /></td><td>Detroit Lions</td><td>0</td><td>1</td><td>1</td>
-<td class="small">Conrad D<br />Freddie <br />Mark<br />Cleo<br />Alli<br />Conrad J<br />Jules<br />JP<br />Pat<br /></td></tr>
+<td class="small">Conrad D<br />Freddie <br />Conrad J<br />Cleo<br />Mark<br />Alli<br />JP<br />Jules<br />Pat<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/hpgNlTf5-z5QECN77.png" /></td><td>Green Bay Packers</td><td>2</td><td>2</td><td>0</td>
 <td class="small">Meghan<br />Angie<br />Vicki <br />Conrad D<br />Mark<br />Pat<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/t0j6ujYA-YyEdy7p8.png" /></td><td>Houston Texans</td><td>0</td><td>0</td><td>0</td>
@@ -61,14 +66,14 @@
 <td class="small">Meghan<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/CppQTQil-dERAD3h1.png" /></td><td>Jacksonville Jaguars</td><td>1</td><td>1</td><td>0</td>
 <td class="small">Angie<br />Freddie <br />Alli<br /></td></tr>
-<tr><td><img src="https://www.flashscore.com/res/image/data/0ly3wzFG-dERAD3h1.png" /></td><td>Kansas City Chiefs</td><td>-1</td><td>0</td><td>1</td>
-<td class="small">Cleo<br />Alli<br />Conrad J<br />Jules<br />JP<br />Pat<br /></td></tr>
-<tr><td><img src="https://www.flashscore.com/res/image/data/rD2Lyqil-fazrR153.png" /></td><td>Las Vegas Raiders</td><td>1</td><td>1</td><td>0</td>
+<tr><td><img src="https://www.flashscore.com/res/image/data/0ly3wzFG-dERAD3h1.png" /></td><td>Kansas City Chiefs</td><td>0</td><td>0</td><td>0</td>
+<td class="small">Conrad J<br />Cleo<br />Alli<br />JP<br />Jules<br />Pat<br /></td></tr>
+<tr><td><img src="https://www.flashscore.com/res/image/data/rD2Lyqil-fazrR153.png" /></td><td>Las Vegas Raiders</td><td>0</td><td>1</td><td>1</td>
 <td class="small"></td></tr>
-<tr><td><img src="https://www.flashscore.com/res/image/data/d0vpBaCr-dxGyIFGs.png" /></td><td>Los Angeles Chargers</td><td>1</td><td>1</td><td>0</td>
+<tr><td><img src="https://www.flashscore.com/res/image/data/d0vpBaCr-dxGyIFGs.png" /></td><td>Los Angeles Chargers</td><td>2</td><td>2</td><td>0</td>
 <td class="small">Meghan<br />Vicki <br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/xKV01zyS-nydk5WWB.png" /></td><td>Los Angeles Rams</td><td>2</td><td>2</td><td>0</td>
-<td class="small">Vicki <br />Conrad D<br />Freddie <br />Cleo<br />Alli<br />Conrad J<br /></td></tr>
+<td class="small">Vicki <br />Conrad D<br />Freddie <br />Conrad J<br />Cleo<br />Alli<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/YeHJQVeM-QuE5mj0t.png" /></td><td>Miami Dolphins</td><td>-1</td><td>0</td><td>1</td>
 <td class="small"></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/biIGYHdM-lKpbmRGS.png" /></td><td>Minnesota Vikings</td><td>1</td><td>1</td><td>0</td>
@@ -82,19 +87,19 @@
 <tr><td><img src="https://www.flashscore.com/res/image/data/nZEMYPAr-KGE1kagO.png" /></td><td>New York Jets</td><td>-1</td><td>0</td><td>1</td>
 <td class="small"></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/p41c4aCr-tl6Yfhah.png" /></td><td>Philadelphia Eagles</td><td>2</td><td>2</td><td>0</td>
-<td class="small">Meghan<br />Angie<br />Vicki <br />Conrad D<br />Freddie <br />Mark<br />Cleo<br />Alli<br />Conrad J<br />Jules<br />JP<br />Pat<br /></td></tr>
+<td class="small">Meghan<br />Angie<br />Vicki <br />Conrad D<br />Freddie <br />Conrad J<br />Cleo<br />Mark<br />Alli<br />JP<br />Jules<br />Pat<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/4YD54NCr-z5QECN77.png" /></td><td>Pittsburgh Steelers</td><td>1</td><td>1</td><td>0</td>
 <td class="small">Jules<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/CMor3wZg-fsiWdyRa.png" /></td><td>San Francisco 49ers</td><td>2</td><td>2</td><td>0</td>
 <td class="small">Angie<br />JP<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/r3Fomsf5-ER5jeflb.png" /></td><td>Seattle Seahawks</td><td>0</td><td>1</td><td>1</td>
 <td class="small">Mark<br />Alli<br /></td></tr>
-<tr><td><img src="https://www.flashscore.com/res/image/data/Ym4bBOeM-SAmySbid.png" /></td><td>Tampa Bay Buccaneers</td><td>1</td><td>1</td><td>0</td>
+<tr><td><img src="https://www.flashscore.com/res/image/data/Ym4bBOeM-SAmySbid.png" /></td><td>Tampa Bay Buccaneers</td><td>2</td><td>2</td><td>0</td>
 <td class="small">Meghan<br />Angie<br />Conrad D<br />Freddie <br />Conrad J<br />JP<br /></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/nFpHjpg5-jczTkHuM.png" /></td><td>Tennessee Titans</td><td>0</td><td>0</td><td>0</td>
 <td class="small"></td></tr>
 <tr><td><img src="https://www.flashscore.com/res/image/data/KbmUMPg5-tbPaYDWc.png" /></td><td>Washington Commanders</td><td>1</td><td>1</td><td>0</td>
-<td class="small">Vicki <br />Mark<br />Cleo<br />Jules<br />Pat<br /></td></tr>
+<td class="small">Vicki <br />Cleo<br />Mark<br />Jules<br />Pat<br /></td></tr>
 </table>
 <br />
 
@@ -209,6 +214,63 @@
         }
       }
     }
+
+    function filterByBetter(betterName) {
+      var table = document.getElementById("teams");
+      var rows = table.rows;
+      var visibleCount = 0;
+      
+      // Loop through all team rows (skip header row at index 0)
+      for (var i = 1; i < rows.length; i++) {
+        var bettersColumn = rows[i].getElementsByTagName("TD")[5]; // Betters column is index 5
+        var bettersText = bettersColumn.innerHTML.toLowerCase();
+        var searchName = betterName.toLowerCase();
+        
+        // Check if the better name appears in the betters column
+        if (bettersText.includes(searchName)) {
+          rows[i].style.display = "";
+          visibleCount++;
+        } else {
+          rows[i].style.display = "none";
+        }
+      }
+      
+      // Update filter status
+      var filterStatus = document.getElementById("filterStatus");
+      filterStatus.innerHTML = "Filtered by: <strong>" + betterName + "</strong> (" + visibleCount + " teams)";
+      
+      // Remove previous highlighting
+      var clickableNames = document.getElementsByClassName("clickable-name");
+      for (var i = 0; i < clickableNames.length; i++) {
+        clickableNames[i].classList.remove("active-filter");
+      }
+      
+      // Highlight the clicked name
+      var clickedElements = document.querySelectorAll('[onclick="filterByBetter(\'' + betterName + '\')"]');
+      if (clickedElements.length > 0) {
+        clickedElements[0].classList.add("active-filter");
+      }
+    }
+    
+    function showAllTeams() {
+      var table = document.getElementById("teams");
+      var rows = table.rows;
+      
+      // Show all rows
+      for (var i = 1; i < rows.length; i++) {
+        rows[i].style.display = "";
+      }
+      
+      // Clear filter status
+      var filterStatus = document.getElementById("filterStatus");
+      filterStatus.innerHTML = "";
+      
+      // Remove highlighting from all names
+      var clickableNames = document.getElementsByClassName("clickable-name");
+      for (var i = 0; i < clickableNames.length; i++) {
+        clickableNames[i].classList.remove("active-filter");
+      }
+    }
 </script>
 
 <style>
@@ -262,5 +324,40 @@ th {
 img {
   max-width: 35px;
   height: auto;
+}
+
+.clickable-name {
+  cursor: pointer;
+  color: #0066cc;
+  font-weight: bold;
+}
+
+.clickable-name:hover {
+  background-color: #f0f8ff;
+  text-decoration: underline;
+}
+
+.active-filter {
+  background-color: #d25252 !important;
+  color: white !important;
+}
+
+#clearFilter {
+  background-color: #d25252;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+#clearFilter:hover {
+  background-color: #b04040;
+}
+
+#filterStatus {
+  color: #666;
+  font-style: italic;
 }
 </style>

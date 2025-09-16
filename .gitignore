@@ -7,3 +7,5 @@
 .env
 /data/*.rs
 *2024*
+src/better_picks_playoffs.txt
+index*.html
