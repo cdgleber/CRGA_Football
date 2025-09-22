@@ -94,7 +94,7 @@ pub fn get_team_div_losses(name: &str) -> Result<u8> {
             }
         }
 
-        if events_length < 31 {
+        if events_length < 30 {
             break;
         }
 
