@@ -61,7 +61,12 @@ pub fn get_team_div_losses(name: &str) -> Result<u8> {
         let event_json = std::fs::read_to_string(path).unwrap();
         let v: Value = serde_json::from_str(&event_json)?;
 
-        let events = v["DATA"][0]["EVENTS"].as_array().unwrap();
+        let events = match v["DATA"][0]["EVENTS"].as_array() {
+            Some(a) => a,
+            None => {
+                break; //break if no new results are on this page. (results on prior page are equal to 30)
+            }
+        };
         let events_length = events.len();
         // println!("{}", events_length);
 
@@ -72,6 +77,10 @@ pub fn get_team_div_losses(name: &str) -> Result<u8> {
             // println!("{:?}", event);
 
             match event["WINNER"].as_u64().unwrap() {
+                0 => {
+                    loser = "tie".to_string();
+                    winner = "tie".to_string();
+                } // handle ties
                 1 => {
                     loser = event["AWAY_NAME"].to_string().replace("\"", "");
                     winner = event["HOME_NAME"].to_string().replace("\"", "");
@@ -95,6 +104,7 @@ pub fn get_team_div_losses(name: &str) -> Result<u8> {
         }
 
         if events_length < 30 {
+            // break if not needing another page of results
             break;
         }
 
