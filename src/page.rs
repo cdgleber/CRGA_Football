@@ -185,10 +185,6 @@ pub const PAGE_HEADER: &str =
             transition: background 0.2s ease;
         }
 
-        tr:hover td {
-            background: #f8f9ff;
-        }
-
         .clickable-name {
             color: #667eea;
             font-weight: 600;
@@ -262,6 +258,10 @@ pub const PAGE_HEADER: &str =
         .small {
             font-size: 0.85rem;
             color: #666;
+        }
+
+        .widen_column {
+            width: 200px;
         }
 
         @keyframes fadeIn {
@@ -378,7 +378,7 @@ pub const PAGE_MIDDLE: &str =
                         <th onclick=\"sortTable(2)\">Score</th>
                         <th onclick=\"sortTable(3)\">Wins</th>
                         <th onclick=\"sortTable(4)\">Divisional Losses</th>
-                        <th>Betters</th>
+                        <th class=\"widen_column\">Betters</th>
                     </tr>
                 </thead>
                 <tbody>
