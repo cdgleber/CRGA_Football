@@ -8,7 +8,7 @@ use dotenv::dotenv;
 
 use CRGA_Football::betters::get_betters_picks;
 use CRGA_Football::standings::get_team_records;
-use CRGA_Football::page::{ PAGE_TOP, PAGE_MIDDLE, PAGE_BOTTOM };
+use CRGA_Football::page::{ PAGE_HEADER, PAGE_TOP, PAGE_MIDDLE, PAGE_BOTTOM };
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -27,8 +27,9 @@ async fn main() -> Result<()> {
     let filename = format!("index.html");
     let mut file = File::create(filename).await?;
 
+    file.write_all(PAGE_HEADER.as_bytes()).await?;
     let to_add = format!(
-        "<div class=\"center\">Updated: {} </div><br />\n",
+        "<div class=\"updated-time\">Updated: {} </div>\n",
         Local::now().format("%Y-%m-%d %H:%M:%S").to_string()
     );
     file.write_all(to_add.as_bytes()).await?;
