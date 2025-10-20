@@ -349,7 +349,9 @@ pub const PAGE_TOP: &str =
                         <th onclick=\"sortTable2(0)\">Better</th>
                         <th onclick=\"sortTable2(1)\">Score</th>
                         <th onclick=\"sortTable2(2)\">Wins</th>
-                        <th onclick=\"sortTable2(3)\">Divisional Losses</th>
+                        <th onclick=\"sortTable2(3)\">Losses</th>
+                        <th onclick=\"sortTable2(4)\">Divisional Losses</th>
+                        <th onclick=\"sortTable2(5)\">Games Played</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -377,7 +379,9 @@ pub const PAGE_MIDDLE: &str =
                         <th onclick=\"sortTable(1)\">Team</th>
                         <th onclick=\"sortTable(2)\">Score</th>
                         <th onclick=\"sortTable(3)\">Wins</th>
-                        <th onclick=\"sortTable(4)\">Divisional Losses</th>
+                        <th onclick=\"sortTable(4)\">Losses</th>
+                        <th onclick=\"sortTable(5)\">Divisional Losses</th>
+                        <th onclick=\"sortTable(6)\">Games Played</th>
                         <th class=\"widen_column\">Betters</th>
                     </tr>
                 </thead>
@@ -486,7 +490,7 @@ pub const PAGE_BOTTOM: &str =
             var visibleCount = 0;
             
             for (var i = 1; i < rows.length; i++) {
-                var bettersColumn = rows[i].getElementsByTagName(\"TD\")[5];
+                var bettersColumn = rows[i].getElementsByTagName(\"TD\")[7];
                 var bettersText = bettersColumn.innerHTML.toLowerCase();
                 var searchName = betterName.toLowerCase().trim();
                 

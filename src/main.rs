@@ -64,12 +64,14 @@ async fn main() -> Result<()> {
     betters.reverse();
     for better in &betters {
         let to_add = format!(
-            "<tr><td onclick=\"filterByBetter(\'{}\')\" class=\"clickable-name\">{}</td><td>{}</td><td>{}</td><td>{}</td></tr>\n",
+            "<tr><td onclick=\"filterByBetter(\'{}\')\" class=\"clickable-name\">{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>\n",
             better.name,
             better.name,
             better.better_score(&standings),
             better.better_wins(&standings),
-            better.better_div_losses(&standings)
+            better.better_losses(&standings),
+            better.better_div_losses(&standings),
+            better.better_games_played(&standings)
         );
 
         file.write_all(to_add.as_bytes()).await?;
@@ -79,12 +81,14 @@ async fn main() -> Result<()> {
 
     for t in standings.values() {
         let to_add = format!(
-            "<tr><td><img src=\"{}\" /></td><td>{}</td><td>{}</td><td>{}</td><td>{}</td>\n",
+            "<tr><td><img src=\"{}\" /></td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td>\n",
             t.image.clone().unwrap_or("".to_string()),
             t.name,
             t.team_score(),
             t.wins,
-            t.div_losses
+            t.losses,
+            t.div_losses,
+            t.wins + t.losses
         );
 
         file.write_all(to_add.as_bytes()).await?;

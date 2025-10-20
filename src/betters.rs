@@ -45,10 +45,27 @@ impl Better {
             .sum()
     }
 
+    pub fn better_losses(&self, standings: &BTreeMap<String, Team>) -> u8 {
+        self.picks
+            .iter()
+            .map(|pick| { standings.get(pick).unwrap().losses })
+            .sum()
+    }
+
     pub fn better_div_losses(&self, standings: &BTreeMap<String, Team>) -> u8 {
         self.picks
             .iter()
             .map(|pick| { standings.get(pick).unwrap().div_losses })
+            .sum()
+    }
+
+    pub fn better_games_played(&self, standings: &BTreeMap<String, Team>) -> u8 {
+        self.picks
+            .iter()
+            .map(|pick| {
+                let standings_for_pick = standings.get(pick).unwrap();
+                standings_for_pick.wins + standings_for_pick.losses
+            })
             .sum()
     }
 }
