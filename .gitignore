@@ -4,6 +4,7 @@
 *.svg
 *.lock
 *.ps1
+*.sh
 .env
 /data/*.rs
 *2024*
