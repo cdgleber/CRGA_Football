@@ -4,10 +4,10 @@ use anyhow::Result;
 use crate::standings::Team;
 
 pub fn get_betters_picks() -> Result<Vec<Better>> {
-    let better_picks = include_str!("better_picks.txt");
+    let better_picks = include_str!("better_picks.txt").replace("\r", "");
 
     let betters: Vec<Better> = better_picks
-        .split("\r\n\r\n")
+        .split("\n\n")
         .map(|better| {
             let mut better_lines = better.lines();
 
